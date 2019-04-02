@@ -7,24 +7,20 @@ strip = 'arm-none-eabi-strip'
 
 [properties]
 c_args = ['-mcpu=cortex-m4',
-          '-mthumb',
-          '-MMD']
+          '-mthumb']
 
-c_link_args = ['-Os',
-               '-Wl,--gc-sections,--defsym=__rtc_localtime=0',
+c_link_args = ['-Wl,--gc-sections,--defsym=__rtc_localtime=0',
                '--specs=nano.specs',
                '-mcpu=cortex-m4',
                '-mthumb']
 
 cpp_args = ['-mcpu=cortex-m4',
             '-mthumb',
-            '-MMD',
             '-felide-constructors',
             '-fno-exceptions',
             '-fno-rtti']
 
-cpp_link_args = ['-Os',
-                 '-Wl,--gc-sections,--defsym=__rtc_localtime=0',
+cpp_link_args = ['-Wl,--gc-sections,--defsym=__rtc_localtime=0',
                  '--specs=nano.specs',
                  '-mcpu=cortex-m4',
                  '-mthumb']
