@@ -1,0 +1,22 @@
+option('arduino_version', type : 'integer', value : 10805,
+       description : 'Arduino tool version. Used by some libraries.')
+
+option('f_cpu', type : 'combo', choices : ['24000000', '48000000',
+                                           '72000000', '96000000'],
+       value : '48000000', description : 'CPU frequency.')
+
+option('keyboard_layout', type : 'combo', choices : ['US_English', 'Swedish'],
+       value : 'Swedish', description : 'Keyboard layout for HID projects.')
+
+option('mcu', type : 'combo', choices : ['MK20DX128', 'MK20DX256', 'MKL26Z64',
+                                         'MK64FX512', 'MK66FX1M0'],
+       value : 'MK20DX256', description : 'Target MCU chip.')
+
+option('teensy_loader_path', type : 'string', value : '/opt',
+       description : 'Path to teensy_loader_cli executable.')
+
+option('teensyduino_version', type : 'integer', value : 144,
+       description : 'Teensyduino version. Used by some libraries.')
+
+option('usb_mode', type : 'combo', choices : ['serial', 'midi'],
+       value : 'serial', description : 'USB operation mode.')
