@@ -15,7 +15,7 @@ opts = []
 mcu = get_option('mcu')
 opts += '-D__' + mcu.to_upper() + '__'
 opts += '-DARDUINO=' + '@0@'.format(get_option('arduino_version'))
-opts += '-DF_CPU=' + get_option('f_cpu')
+opts += '-DF_CPU=' + get_option('cpu_frequency') + '000000'
 opts += '-DLAYOUT_' + get_option('keyboard_layout').to_upper()
 opts += '-DTEENSYDUINO=' + '@0@'.format(get_option('teensyduino_version'))
 opts += '-DUSB_' + get_option('usb_mode').to_upper()
