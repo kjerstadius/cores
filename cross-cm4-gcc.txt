@@ -1,0 +1,36 @@
+[binaries]
+c = 'arm-none-eabi-gcc'
+cpp = 'arm-none-eabi-g++'
+objcopy = 'arm-none-eabi-objcopy'
+size = 'arm-none-eabi-size'
+strip = 'arm-none-eabi-strip'
+
+[properties]
+c_args = ['-mcpu=cortex-m4',
+          '-mthumb',
+          '-MMD']
+
+c_link_args = ['-Os',
+               '-Wl,--gc-sections,--defsym=__rtc_localtime=0',
+               '--specs=nano.specs',
+               '-mcpu=cortex-m4',
+               '-mthumb']
+
+cpp_args = ['-mcpu=cortex-m4',
+            '-mthumb',
+            '-MMD',
+            '-felide-constructors',
+            '-fno-exceptions',
+            '-fno-rtti']
+
+cpp_link_args = ['-Os',
+                 '-Wl,--gc-sections,--defsym=__rtc_localtime=0',
+                 '--specs=nano.specs',
+                 '-mcpu=cortex-m4',
+                 '-mthumb']
+
+[host_machine]
+system = 'bare_metal'
+cpu_family = 'arm'
+cpu = 'cortex-m4'
+endian = 'little'
