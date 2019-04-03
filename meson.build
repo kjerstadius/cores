@@ -1,5 +1,6 @@
 project('teensy_core', ['c', 'cpp'],
-        default_options : ['buildtype=minsize',
+        default_options : ['b_staticpic=false',
+                           'buildtype=minsize',
                            'c_std=c11',
                            'cpp_std=c++14',
                            'default_library=static'],

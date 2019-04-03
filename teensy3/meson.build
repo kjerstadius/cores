@@ -54,18 +54,16 @@ teensy3_core_lib = library('core_teensy3', [c_srcs, cpp_srcs],
                            build_by_default : true,
                            c_args : opts,
                            cpp_args : opts)
-t3_core_srcs = files(c_srcs, cpp_srcs)
 
 link_script = mcu.to_lower() + '.ld'
 map_flag = '-T@0@/@1@'.format(meson.current_source_dir(), link_script)
-main_elf = executable('main', ['main.cpp', t3_core_srcs],
+main_elf = executable('main', ['main.cpp'],
                       build_by_default : true,
                       c_args : opts,
                       cpp_args : [opts, '-DUSING_MAKEFILE'],
                       link_args : map_flag,
                       link_depends : link_script,
-                      # Why does linking with the static library not work?
-                      # link_with : [teensy3_core_lib],
+                      link_whole : teensy3_core_lib,
                       name_suffix : 'elf')
 
 size_exe = find_program('size')
