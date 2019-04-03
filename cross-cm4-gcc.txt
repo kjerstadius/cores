@@ -9,21 +9,21 @@ strip = 'arm-none-eabi-strip'
 c_args = ['-mcpu=cortex-m4',
           '-mthumb']
 
-c_link_args = ['-Wl,--gc-sections,--defsym=__rtc_localtime=0',
-               '--specs=nano.specs',
+c_link_args = ['--specs=nano.specs',
                '-mcpu=cortex-m4',
-               '-mthumb']
+               '-mthumb',
+               '-Wl,--gc-sections,--defsym=__rtc_localtime=0']
 
-cpp_args = ['-mcpu=cortex-m4',
-            '-mthumb',
-            '-felide-constructors',
+cpp_args = ['-felide-constructors',
             '-fno-exceptions',
-            '-fno-rtti']
+            '-fno-rtti',
+            '-mcpu=cortex-m4',
+            '-mthumb']
 
-cpp_link_args = ['-Wl,--gc-sections,--defsym=__rtc_localtime=0',
-                 '--specs=nano.specs',
+cpp_link_args = ['--specs=nano.specs',
                  '-mcpu=cortex-m4',
-                 '-mthumb']
+                 '-mthumb',
+                 '-Wl,--gc-sections,--defsym=__rtc_localtime=0']
 
 [host_machine]
 system = 'bare_metal'

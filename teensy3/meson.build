@@ -52,22 +52,18 @@ cpp_srcs = ['AudioStream.cpp',
 
 teensy3_core_lib = library('core_teensy3', [c_srcs, cpp_srcs],
                            build_by_default : true,
-                           c_args : [opts, extra_args],
-                           cpp_args : [opts, extra_args])
-
+                           c_args : opts,
+                           cpp_args : opts)
 t3_core_srcs = files(c_srcs, cpp_srcs)
 
-cc = meson.get_compiler('c')
-libm = cc.find_library('libm')
 link_script = mcu.to_lower() + '.ld'
 map_flag = '-T@0@/@1@'.format(meson.current_source_dir(), link_script)
 main_elf = executable('main', ['main.cpp', t3_core_srcs],
                       build_by_default : true,
-                      c_args : [opts, extra_args],
-                      cpp_args : [opts, extra_args],
-                      dependencies : [libm],
-                      link_args : [map_flag],
-                      link_depends : [link_script],
+                      c_args : opts,
+                      cpp_args : [opts, '-DUSING_MAKEFILE'],
+                      link_args : map_flag,
+                      link_depends : link_script,
                       # Why does linking with the static library not work?
                       # link_with : [teensy3_core_lib],
                       name_suffix : 'elf')

@@ -19,9 +19,6 @@ opts += '-DF_CPU=' + get_option('cpu_frequency') + '000000'
 opts += '-DLAYOUT_' + get_option('keyboard_layout').to_upper()
 opts += '-DTEENSYDUINO=' + '@0@'.format(get_option('teensyduino_version'))
 opts += '-DUSB_' + get_option('usb_mode').to_upper()
-# Needed for main.cpp
-extra_args = []
-extra_args += '-DUSING_MAKEFILE'
 
 subdir('teensy3')
 
@@ -34,5 +31,5 @@ loader_cli = find_program('teensy_loader_cli',
 if not loader_cli.found()
   warning('Teensy loader CLI executable not found. Flashing will be disabled.')
 endif
-run_target('flash', command : [loader_cli, '--mcu=' + mcu.to_lower(), '-s', '-v',
-                               '-w', main_hex])
+run_target('flash', command : [loader_cli, '--mcu=' + mcu.to_lower(),
+                               '-s', '-v', '-w', main_hex])
