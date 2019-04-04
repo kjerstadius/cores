@@ -57,23 +57,23 @@ teensy3_core_lib = library('core_teensy3', [c_srcs, cpp_srcs],
 
 link_script = mcu.to_lower() + '.ld'
 map_flag = '-T@0@/@1@'.format(meson.current_source_dir(), link_script)
-main_elf = executable('main', ['main.cpp'],
-                      build_by_default : true,
-                      c_args : opts,
-                      cpp_args : [opts, '-DUSING_MAKEFILE'],
-                      link_args : map_flag,
-                      link_depends : link_script,
-                      link_whole : teensy3_core_lib,
-                      name_suffix : 'elf')
+blinky_elf = executable('blinky', ['main.cpp'],
+                        build_by_default : true,
+                        c_args : opts,
+                        cpp_args : [opts, '-DUSING_MAKEFILE'],
+                        link_args : map_flag,
+                        link_depends : link_script,
+                        link_whole : teensy3_core_lib,
+                        name_suffix : 'elf')
 
 size_exe = find_program('size')
-run_target('size', command : [size_exe, main_elf])
+run_target('size', command : [size_exe, blinky_elf])
 
 objcopy = find_program('objcopy')
 objcopy_flags = ['-O', 'ihex', '-R', '.eeprom']
-main_hex = custom_target('main_hex',
-                         build_by_default : true,
-                         command : [objcopy, objcopy_flags,
-                                    '@INPUT@', '@OUTPUT@'],
-                         input : main_elf,
-                         output : 'main.hex')
+blinky_hex = custom_target('blinky-hex',
+                           build_by_default : true,
+                           command : [objcopy, objcopy_flags,
+                                      '@INPUT@', '@OUTPUT@'],
+                           input : blinky_elf,
+                           output : 'blinky.hex')
