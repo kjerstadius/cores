@@ -33,4 +33,4 @@ if not loader_cli.found()
   warning('Teensy loader CLI executable not found. Flashing will be disabled.')
 endif
 run_target('flash', command : [loader_cli, '--mcu=' + mcu.to_lower(),
-                               '-s', '-v', '-w', main_hex])
+                               '-s', '-v', '-w', blinky_hex])
