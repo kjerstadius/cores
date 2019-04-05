@@ -50,7 +50,13 @@ cpp_srcs = ['AudioStream.cpp',
             'usb_inst.cpp',
             'yield.cpp']
 
-teensy3_core_lib = library('core_teensy3', [c_srcs, cpp_srcs],
+# Note: memset.S only seems to provide a benefit when -Os is used. Otherwise
+# performance is identical to the default behaviour. Is the assembly somehow
+# replaced with a different implementation for the other -O settings?
+s_srcs = ['memcpy-armv7m.S',
+          'memset.S']
+
+teensy3_core_lib = library('core_teensy3', [c_srcs, cpp_srcs, s_srcs],
                            build_by_default : true,
                            c_args : opts,
                            cpp_args : opts)
