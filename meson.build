@@ -7,10 +7,8 @@ project('teensy_core', ['c', 'cpp'],
                            'default_library=static'],
         version : '0.99')
 
-if not meson.is_cross_build()
-  error('Build not initialized as cross build. '
-        + 'Native build is unfortunately not possible.')
-endif
+assert(meson.is_cross_build(), 'Build not initialized as cross build. '
+                               + 'Native build is unfortunately not possible.')
 
 # Handle options
 opts = []
