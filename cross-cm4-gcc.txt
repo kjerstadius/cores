@@ -7,8 +7,7 @@ size = 'arm-none-eabi-size'
 strip = 'arm-none-eabi-strip'
 
 [properties]
-c_args = ['-flto',
-          '-mcpu=cortex-m4',
+c_args = ['-mcpu=cortex-m4',
           '-mthumb']
 
 c_link_args = ['--specs=nano.specs',
@@ -17,7 +16,6 @@ c_link_args = ['--specs=nano.specs',
                '-Wl,--gc-sections,--defsym=__rtc_localtime=0']
 
 cpp_args = ['-felide-constructors',
-            '-flto',
             '-fno-exceptions',
             '-fno-rtti',
             '-mcpu=cortex-m4',
