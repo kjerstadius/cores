@@ -56,12 +56,16 @@ cpp_srcs = ['AudioStream.cpp',
 s_srcs = ['memcpy-armv7m.S',
           'memset.S']
 
+includes = include_directories(['.', 'avr', 'util'])
+
 libteensycore = library('teensycore-' + mcu.to_lower(),
-                         [c_srcs, cpp_srcs, s_srcs],
-                         c_args : opts,
-                         cpp_args : opts,
-                         build_by_default : true)
-libteensycore_dep = declare_dependency(link_with: libteensycore)
+                        [c_srcs, cpp_srcs, s_srcs],
+                        c_args : opts,
+                        cpp_args : opts,
+                        include_directories : includes,
+                        build_by_default : true)
+libteensycore_dep = declare_dependency(include_directories: includes,
+                                       link_with: libteensycore)
 
 link_script = mcu.to_lower() + '.ld'
 map_flag = '-T@0@/@1@'.format(meson.current_source_dir(), link_script)
