@@ -30,7 +30,11 @@ opts += '-DLAYOUT_' + get_option('keyboard_layout').to_upper()
 opts += '-DTEENSYDUINO=' + '@0@'.format(get_option('teensyduino_version'))
 opts += '-DUSB_' + get_option('usb_mode').to_upper()
 
-subdir('teensy3')
+if variant == 'LC'
+  subdir('teensy3')
+else
+  subdir('teensy' + variant.split('.')[0])
+endif
 
 loader_cli = find_program('teensy_loader_cli',
                           get_option('teensy_loader_path')
