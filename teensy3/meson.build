@@ -98,3 +98,15 @@ blinky_hex = custom_target('blinky-hex',
                            input : blinky_elf,
                            output : 'blinky.hex',
                            build_by_default : true)
+
+loader_cli = find_program('teensy_loader_cli',
+                          get_option('teensy_loader_path')
+                          + '/teensy_loader_cli',
+                          disabler : true,
+                          native : true,
+                          required : false)
+if not loader_cli.found()
+ warning('Teensy loader CLI executable not found. Flashing will be disabled.')
+endif
+run_target('flash', command : [loader_cli, '--mcu=' + mcu.to_lower(),
+                               '-s', '-v', '-w', blinky_hex])
