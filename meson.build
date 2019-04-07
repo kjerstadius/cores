@@ -1,12 +1,12 @@
-project('teensy_core', ['c', 'cpp'],
+project('libteensycore', ['c', 'cpp'],
+        version : '1.45',
         default_options : ['b_staticpic=false',
                            'b_lto=true',
                            'buildtype=minsize',
                            'c_std=c11',
                            'cpp_std=c++14',
                            'default_library=static'],
-        meson_version : '>=0.49.0',
-        version : '0.99')
+        meson_version : '>=0.49.0')
 
 assert(meson.is_cross_build(), 'Build not initialized as cross build. '
                                + 'Native build is unfortunately not possible.')
