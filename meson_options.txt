@@ -13,7 +13,27 @@ option('teensy_loader_path', type : 'string', value : '/opt',
 option('teensyduino_version', type : 'integer', value : 144,
        description : 'Teensyduino version. Used by some libraries.')
 
-option('usb_mode', type : 'combo', choices : ['serial', 'midi'],
+option('usb_mode', type : 'combo', choices : [#From usb_desc.h
+                                              'audio',
+                                              'everything',
+                                              'flightsim',
+                                              'flightsim_joystick',
+                                              'hid',
+                                              'hid_touchscreen',
+                                              'keyboardonly',
+                                              'midi',
+                                              'midi_serial',
+                                              'midi_audio_serial',
+                                              'midi4',
+                                              'midi4_serial',
+                                              'midi16',
+                                              'midi16_serial',
+                                              'midi16_audio_serial',
+                                              'mtpdisk',
+                                              'rawhid',
+                                              'serial',
+                                              'serial_hid',
+                                              'touchscreen'],
        value : 'serial', description : 'USB operation mode.')
 
 option('variant', type : 'combo',  description : 'Teensy board variant.',
