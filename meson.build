@@ -1,7 +1,7 @@
 project('libteensycore', ['c', 'cpp'],
         version : '1.45',
-        default_options : ['b_staticpic=false',
-                           'b_lto=true',
+        default_options : ['b_lto=true',
+                           'b_staticpic=false',
                            'buildtype=minsize',
                            'c_std=c11',
                            'cpp_std=c++14',
@@ -21,6 +21,7 @@ teensy_variant_info = {'3.0': {'mcu': 'MK20DX128'},
 variant = get_option('variant')
 assert(teensy_variant_info.has_key(variant),
        'Teensy variant ' + variant + ' not recognized.')
+variant_nodot = ''.join(variant.split('.'))
 mcu = teensy_variant_info.get(variant).get('mcu')
 opts = []
 opts += '-D__' + mcu.to_upper() + '__'
