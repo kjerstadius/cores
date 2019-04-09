@@ -58,7 +58,7 @@ s_srcs = ['memcpy-armv7m.S',
 
 includes = include_directories(['.', 'avr', 'util'])
 
-libteensycore = library('teensycore-' + mcu.to_lower(),
+libteensycore = library('teensycore-teensy' + variant_nodot,
                         [c_srcs, cpp_srcs, s_srcs],
                         c_args : opts,
                         cpp_args : opts,
@@ -67,7 +67,7 @@ libteensycore = library('teensycore-' + mcu.to_lower(),
 libteensycore_dep = declare_dependency(include_directories: includes,
                                        link_with: libteensycore)
 
-libteensycore_main = library('teensycore-main-' + mcu.to_lower(),
+libteensycore_main = library('teensycore-main-teensy' + variant_nodot,
                              ['main.cpp'],
                              c_args : opts,
                              cpp_args : opts,
@@ -78,7 +78,8 @@ libteensycore_main_dep = declare_dependency(include_directories : includes,
 
 link_script = mcu.to_lower() + '.ld'
 map_flag = '-T@0@/@1@'.format(meson.current_source_dir(), link_script)
-blinky_elf = executable('blinky', ['main.cpp'],
+blinky_elf = executable('blinky-teensy' + variant_nodot,
+                        ['main.cpp'],
                         c_args : opts,
                         cpp_args : [opts, '-DUSING_MAKEFILE'],
                         dependencies : libteensycore_dep,
@@ -96,7 +97,7 @@ blinky_hex = custom_target('blinky-hex',
                            command : [objcopy, objcopy_flags,
                                       '@INPUT@', '@OUTPUT@'],
                            input : blinky_elf,
-                           output : 'blinky.hex',
+                           output : 'blinky-teensy' + variant_nodot + '.hex',
                            build_by_default : true)
 
 loader_cli = find_program('teensy_loader_cli',
