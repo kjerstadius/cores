@@ -13,7 +13,6 @@ assert(meson.is_cross_build(), 'Build not initialized as cross build. '
 
 # Handle options:
 teensy_variant_info = {'3.0': {'mcu': 'MK20DX128'},
-                       '3.1': {'mcu': 'MK20DX256'},
                        '3.2': {'mcu': 'MK20DX256'},
                        '3.5': {'mcu': 'MK64FX512'},
                        '3.6': {'mcu': 'MK66FX1M0'},
