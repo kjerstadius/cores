@@ -50,9 +50,7 @@ cpp_srcs = ['AudioStream.cpp',
             'usb_inst.cpp',
             'yield.cpp']
 
-# Note: memset.S only seems to provide a benefit when -Os is used. Otherwise
-# performance is identical to the default behaviour. Is the assembly somehow
-# replaced with a different implementation for the other -O settings?
+# Note: The optimised memset.S is only used when optimising for size (-Os)
 s_srcs = ['memcpy-armv7m.S',
           'memset.S']
 
