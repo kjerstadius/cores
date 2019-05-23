@@ -4,7 +4,7 @@ project('libteensycore', ['c', 'cpp'],
                            'b_staticpic=false',
                            'buildtype=minsize',
                            'c_std=c11',
-                           'cpp_std=c++14',
+                           'cpp_std=gnu++14',
                            'default_library=static'],
         meson_version : '>=0.49.0')
 
