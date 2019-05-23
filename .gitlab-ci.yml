@@ -1,0 +1,55 @@
+image: registry.gitlab.com/kjerstadius/docker-gcc-arm-none-eabi-meson/gcc-arm-none-eabi-meson
+
+variables:
+  TEENSY3_CROSSFILE_GCC: cross-teensy3-gcc.txt
+  INSTALL_PREFIX: $CI_PROJECT_DIR/install
+
+Build 3.0:
+  script:
+    - meson build-teensy30 -Dvariant=3.0 -Dcpu_frequency=72
+      -Dprefix=$INSTALL_PREFIX --cross-file=$TEENSY3_CROSSFILE_GCC
+    - ninja -C build-teensy30 install
+    - ninja -C build-teensy30 size
+  artifacts:
+    paths:
+      - $INSTALL_PREFIX/
+
+Build 3.2:
+  script:
+    - meson build-teensy32 -Dvariant=3.2 -Dcpu_frequency=96
+      -Dprefix=$INSTALL_PREFIX --cross-file=$TEENSY3_CROSSFILE_GCC
+    - ninja -C build-teensy32 install
+    - ninja -C build-teensy32 size
+  artifacts:
+    paths:
+      - $INSTALL_PREFIX/
+
+Build 3.5:
+  script:
+    - meson build-teensy35 -Dvariant=3.5 -Dcpu_frequency=120
+      -Dprefix=$INSTALL_PREFIX --cross-file=$TEENSY3_CROSSFILE_GCC
+    - ninja -C build-teensy35 install
+    - ninja -C build-teensy35 size
+  artifacts:
+    paths:
+      - $INSTALL_PREFIX/
+
+Build 3.6:
+  script:
+    - meson build-teensy36 -Dvariant=3.6 -Dcpu_frequency=180
+      -Dprefix=$INSTALL_PREFIX --cross-file=$TEENSY3_CROSSFILE_GCC
+    - ninja -C build-teensy36 install
+    - ninja -C build-teensy36 size
+  artifacts:
+    paths:
+      - $INSTALL_PREFIX/
+
+Build LC:
+  script:
+    - meson build-teensyLC -Dvariant=LC -Dcpu_frequency=48
+      -Dprefix=$INSTALL_PREFIX --cross-file=$TEENSY3_CROSSFILE_GCC
+    - ninja -C build-teensyLC install
+    - ninja -C build-teensyLC size
+  artifacts:
+    paths:
+      - $INSTALL_PREFIX/
