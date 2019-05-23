@@ -5,6 +5,7 @@ variables:
   INSTALL_PREFIX: $CI_PROJECT_DIR/install
 
 Build 3.0:
+  stage: build
   script:
     - meson build-teensy30 -Dvariant=3.0 -Dcpu_frequency=72
       -Dprefix=$INSTALL_PREFIX --cross-file=$TEENSY3_CROSSFILE_GCC
@@ -15,6 +16,7 @@ Build 3.0:
       - $INSTALL_PREFIX/
 
 Build 3.2:
+  stage: build
   script:
     - meson build-teensy32 -Dvariant=3.2 -Dcpu_frequency=96
       -Dprefix=$INSTALL_PREFIX --cross-file=$TEENSY3_CROSSFILE_GCC
@@ -25,6 +27,7 @@ Build 3.2:
       - $INSTALL_PREFIX/
 
 Build 3.5:
+  stage: build
   script:
     - meson build-teensy35 -Dvariant=3.5 -Dcpu_frequency=120
       -Dprefix=$INSTALL_PREFIX --cross-file=$TEENSY3_CROSSFILE_GCC
@@ -35,6 +38,7 @@ Build 3.5:
       - $INSTALL_PREFIX/
 
 Build 3.6:
+  stage: build
   script:
     - meson build-teensy36 -Dvariant=3.6 -Dcpu_frequency=180
       -Dprefix=$INSTALL_PREFIX --cross-file=$TEENSY3_CROSSFILE_GCC
@@ -45,6 +49,7 @@ Build 3.6:
       - $INSTALL_PREFIX/
 
 Build LC:
+  stage: build
   script:
     - meson build-teensyLC -Dvariant=LC -Dcpu_frequency=48
       -Dprefix=$INSTALL_PREFIX --cross-file=$TEENSY3_CROSSFILE_GCC
