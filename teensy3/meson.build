@@ -61,7 +61,8 @@ libteensycore = library('teensycore-teensy' + variant_nodot,
                         c_args : opts,
                         cpp_args : opts,
                         include_directories : includes,
-                        build_by_default : true)
+                        build_by_default : true,
+                        install : true)
 libteensycore_dep = declare_dependency(include_directories: includes,
                                        link_with: libteensycore)
 
@@ -70,7 +71,8 @@ libteensycore_main = library('teensycore-main-teensy' + variant_nodot,
                              c_args : opts,
                              cpp_args : opts,
                              include_directories : includes,
-                             build_by_default : true)
+                             build_by_default : true,
+                             install : true)
 libteensycore_main_dep = declare_dependency(include_directories : includes,
                                             link_with : libteensycore_main)
 
@@ -84,7 +86,8 @@ blinky_elf = executable('blinky-teensy' + variant_nodot,
                         link_args : map_flag,
                         link_depends : link_script,
                         name_suffix : 'elf',
-                        build_by_default : true)
+                        build_by_default : true,
+                        install : true)
 
 size_exe = find_program('size')
 run_target('size', command : [size_exe, blinky_elf])
@@ -96,7 +99,9 @@ blinky_hex = custom_target('blinky-hex',
                                       '@INPUT@', '@OUTPUT@'],
                            input : blinky_elf,
                            output : 'blinky-teensy' + variant_nodot + '.hex',
-                           build_by_default : true)
+                           build_by_default : true,
+                           install : true,
+                           install_dir : get_option('bindir'))
 
 loader_cli = find_program('teensy_loader_cli',
                           get_option('teensy_loader_path')
