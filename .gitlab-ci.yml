@@ -40,7 +40,7 @@ Build 3.5:
 Build 3.6:
   stage: build
   script:
-    - meson build-teensy36 -Dvariant=3.6 -Dcpu_frequency=180
+    - meson build-teensy36 -Dvariant=3.6 -Dcpu_frequency=168
       -Dprefix=$INSTALL_PREFIX --cross-file=$TEENSY3_CROSSFILE_GCC
     - ninja -C build-teensy36 install
     - ninja -C build-teensy36 size
