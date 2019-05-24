@@ -1,7 +1,8 @@
 option('arduino_version', type : 'integer', value : 10808,
        description : 'Arduino IDE version. Used by some libraries.')
 
-option('cpu_frequency', type : 'combo', choices : ['24', '48', '72', '96', '120', '180'],
+option('cpu_frequency', type : 'combo',
+       choices : ['24', '48', '72', '96', '120', '144', '168', '192', '216', '240'],
        value : '48', description : 'CPU frequency in MHz.')
 
 option('keyboard_layout', type : 'combo', choices : [#From keylayouts.h
