@@ -76,14 +76,14 @@ libteensycore_main = library('teensycore-main-teensy' + variant_nodot,
 libteensycore_main_dep = declare_dependency(include_directories : includes,
                                             link_with : libteensycore_main)
 
-link_script = mcu.to_lower() + '.ld'
-map_flag = '-T@0@/@1@'.format(meson.current_source_dir(), link_script)
+link_script = files(mcu.to_lower() + '.ld')
+link_script_flag = '-T@0@/@1@'.format(meson.source_root(), link_script[0])
 blinky_elf = executable('blinky-teensy' + variant_nodot,
                         ['main.cpp'],
                         c_args : opts,
                         cpp_args : [opts, '-DUSING_MAKEFILE'],
                         dependencies : libteensycore_dep,
-                        link_args : map_flag,
+                        link_args : link_script_flag,
                         link_depends : link_script,
                         name_suffix : 'elf',
                         build_by_default : true,
