@@ -67,7 +67,7 @@ libteensycore_dep = declare_dependency(include_directories: includes,
                                        link_with: libteensycore)
 
 libteensycore_main = library('teensycore-main-teensy' + variant_nodot,
-                             ['main.cpp'],
+                             'main.cpp',
                              c_args : opts,
                              cpp_args : opts,
                              include_directories : includes,
@@ -79,7 +79,7 @@ libteensycore_main_dep = declare_dependency(include_directories : includes,
 link_script = files(mcu.to_lower() + '.ld')
 link_script_flag = '-T@0@/@1@'.format(meson.source_root(), link_script[0])
 blinky_elf = executable('blinky-teensy' + variant_nodot,
-                        ['main.cpp'],
+                        'main.cpp',
                         c_args : opts,
                         cpp_args : [opts, '-DUSING_MAKEFILE'],
                         dependencies : libteensycore_dep,
@@ -90,7 +90,7 @@ blinky_elf = executable('blinky-teensy' + variant_nodot,
                         install : true)
 
 size_exe = find_program('size')
-run_target('size', command : [size_exe, blinky_elf])
+run_target('blinky.size', command : [size_exe, blinky_elf])
 
 objcopy = find_program('objcopy')
 objcopy_flags = ['-O', 'ihex', '-R', '.eeprom']
@@ -112,5 +112,5 @@ loader_cli = find_program('teensy_loader_cli',
 if not loader_cli.found()
  warning('Teensy loader CLI executable not found. Flashing will be disabled.')
 endif
-run_target('flash', command : [loader_cli, '--mcu=' + mcu.to_lower(),
-                               '-s', '-v', '-w', blinky_hex])
+run_target('blinky.flash', command : [loader_cli, '--mcu=' + mcu.to_lower(),
+                                      '-s', '-v', '-w', blinky_hex])
