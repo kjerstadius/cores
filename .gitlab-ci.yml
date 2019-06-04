@@ -10,7 +10,7 @@ Build 3.0:
     - meson build-teensy30 -Dvariant=3.0 -Dcpu_frequency=72
       -Dprefix=$INSTALL_PREFIX --cross-file=$TEENSY3_CROSSFILE_GCC
     - ninja -C build-teensy30 install
-    - ninja -C build-teensy30 size
+    - ninja -C build-teensy30 blinky.size
   artifacts:
     paths:
       - $INSTALL_PREFIX/
@@ -21,7 +21,7 @@ Build 3.2:
     - meson build-teensy32 -Dvariant=3.2 -Dcpu_frequency=96
       -Dprefix=$INSTALL_PREFIX --cross-file=$TEENSY3_CROSSFILE_GCC
     - ninja -C build-teensy32 install
-    - ninja -C build-teensy32 size
+    - ninja -C build-teensy32 blinky.size
   artifacts:
     paths:
       - $INSTALL_PREFIX/
@@ -32,7 +32,7 @@ Build 3.5:
     - meson build-teensy35 -Dvariant=3.5 -Dcpu_frequency=120
       -Dprefix=$INSTALL_PREFIX --cross-file=$TEENSY3_CROSSFILE_GCC
     - ninja -C build-teensy35 install
-    - ninja -C build-teensy35 size
+    - ninja -C build-teensy35 blinky.size
   artifacts:
     paths:
       - $INSTALL_PREFIX/
@@ -43,7 +43,7 @@ Build 3.6:
     - meson build-teensy36 -Dvariant=3.6 -Dcpu_frequency=168
       -Dprefix=$INSTALL_PREFIX --cross-file=$TEENSY3_CROSSFILE_GCC
     - ninja -C build-teensy36 install
-    - ninja -C build-teensy36 size
+    - ninja -C build-teensy36 blinky.size
   artifacts:
     paths:
       - $INSTALL_PREFIX/
@@ -54,7 +54,7 @@ Build LC:
     - meson build-teensyLC -Dvariant=LC -Dcpu_frequency=48
       -Dprefix=$INSTALL_PREFIX --cross-file=$TEENSY3_CROSSFILE_GCC
     - ninja -C build-teensyLC install
-    - ninja -C build-teensyLC size
+    - ninja -C build-teensyLC blinky.size
   artifacts:
     paths:
       - $INSTALL_PREFIX/
