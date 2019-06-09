@@ -64,7 +64,7 @@ libteensycore = library('teensycore-teensy' + variant_nodot,
                         build_by_default : true,
                         install : true)
 libteensycore_dep = declare_dependency(include_directories: includes,
-                                       link_with: libteensycore)
+                                       link_whole: libteensycore)
 
 libteensycore_main = library('teensycore-main-teensy' + variant_nodot,
                              'main.cpp',
@@ -74,7 +74,7 @@ libteensycore_main = library('teensycore-main-teensy' + variant_nodot,
                              build_by_default : true,
                              install : true)
 libteensycore_main_dep = declare_dependency(include_directories : includes,
-                                            link_with : libteensycore_main)
+                                            link_whole : libteensycore_main)
 
 link_script = files(mcu.to_lower() + '.ld')
 link_script_flag = '-T@0@/@1@'.format(meson.source_root(), link_script[0])
