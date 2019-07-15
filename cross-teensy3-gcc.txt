@@ -19,7 +19,8 @@ cpp_args = ['-felide-constructors',
             '-fno-exceptions',
             '-fno-rtti',
             '-mcpu=cortex-m4',
-            '-mthumb']
+            '-mthumb',
+            '-Wno-non-virtual-dtor']
 
 cpp_link_args = ['--specs=nano.specs',
                  '-fuse-linker-plugin',
