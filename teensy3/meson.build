@@ -68,7 +68,7 @@ libteensycore = library('teensycore-teensy' + variant_nodot,
                         cpp_args : opts,
                         include_directories : includes,
                         build_by_default : true,
-                        install : true)
+                        install : do_install)
 libteensycore_dep = declare_dependency(include_directories: includes,
                                        link_whole: libteensycore)
 
@@ -78,7 +78,7 @@ libteensycore_main = library('teensycore-main-teensy' + variant_nodot,
                              cpp_args : opts,
                              include_directories : includes,
                              build_by_default : true,
-                             install : true)
+                             install : do_install)
 libteensycore_main_dep = declare_dependency(include_directories : includes,
                                             link_whole : libteensycore_main)
 
@@ -93,7 +93,7 @@ blinky_elf = executable('blinky-teensy' + variant_nodot,
                         link_depends : link_script,
                         name_suffix : 'elf',
                         build_by_default : true,
-                        install : true)
+                        install : do_install)
 
 size_exe = find_program('size')
 run_target('blinky.size', command : [size_exe, blinky_elf])
@@ -106,7 +106,7 @@ blinky_hex = custom_target('blinky-hex',
                            input : blinky_elf,
                            output : 'blinky-teensy' + variant_nodot + '.hex',
                            build_by_default : true,
-                           install : true,
+                           install : do_install,
                            install_dir : get_option('bindir'))
 
 loader_cli = find_program('teensy_loader_cli',
@@ -116,7 +116,7 @@ loader_cli = find_program('teensy_loader_cli',
                           native : true,
                           required : false)
 if not loader_cli.found()
- warning('Teensy loader CLI executable not found. Flashing will be disabled.')
+  warning('Teensy loader CLI executable not found. Flashing will be disabled.')
 endif
 run_target('blinky.flash', command : [loader_cli, '--mcu=' + mcu.to_lower(),
                                       '-s', '-v', '-w', blinky_hex])

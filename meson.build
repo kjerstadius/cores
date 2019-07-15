@@ -11,6 +11,12 @@ project('libteensycore', ['c', 'cpp'],
 assert(meson.is_cross_build(), 'Build not initialized as cross build. '
                                + 'Native build is unfortunately not possible.')
 
+if meson.is_subproject()
+  do_install = false
+else
+  do_install = true
+endif
+
 # Handle options:
 teensy_variant_info = {'3.0': {'mcu': 'MK20DX128', 'f_cpu_max': 96},
                        '3.2': {'mcu': 'MK20DX256', 'f_cpu_max': 120},
