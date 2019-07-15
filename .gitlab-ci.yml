@@ -1,61 +1,60 @@
-image: registry.gitlab.com/kjerstadius/docker-gcc-arm-none-eabi-meson/gcc-arm-none-eabi-meson
-
 variables:
   TEENSY3_CROSSFILE_GCC: cross-teensy3-gcc.txt
   TEENSYLC_CROSSFILE_GCC: cross-teensylc-gcc.txt
   INSTALL_PREFIX: $CI_PROJECT_DIR/install
 
-Build 3.0:
+.build:
   stage: build
+  image: registry.gitlab.com/kjerstadius/docker-gcc-arm-none-eabi-meson/gcc-arm-none-eabi-meson
   script:
-    - meson build-teensy30 -Dvariant=3.0 -Dcpu_frequency=72
-      -Dprefix=$INSTALL_PREFIX --cross-file=$TEENSY3_CROSSFILE_GCC
-    - ninja -C build-teensy30 install
-    - ninja -C build-teensy30 blinky.size
+    - meson $BUILD_DIR
+        -Dvariant=$VARIANT
+        -Dcpu_frequency=$CPU_FREQ
+        -Dprefix=$INSTALL_PREFIX
+        --cross-file=$CROSS_FILE
+    - meson configure $BUILD_DIR
+    - ninja -C $BUILD_DIR install
+    - ninja -C $BUILD_DIR blinky.size
   artifacts:
     paths:
       - $INSTALL_PREFIX/
 
-Build 3.2:
-  stage: build
-  script:
-    - meson build-teensy32 -Dvariant=3.2 -Dcpu_frequency=96
-      -Dprefix=$INSTALL_PREFIX --cross-file=$TEENSY3_CROSSFILE_GCC
-    - ninja -C build-teensy32 install
-    - ninja -C build-teensy32 blinky.size
-  artifacts:
-    paths:
-      - $INSTALL_PREFIX/
+Teensy 3.0:
+  extends: .build
+  variables:
+    BUILD_DIR: build
+    CPU_FREQ: '72'
+    CROSS_FILE: $TEENSY3_CROSSFILE_GCC
+    VARIANT: '3.0'
 
-Build 3.5:
-  stage: build
-  script:
-    - meson build-teensy35 -Dvariant=3.5 -Dcpu_frequency=120
-      -Dprefix=$INSTALL_PREFIX --cross-file=$TEENSY3_CROSSFILE_GCC
-    - ninja -C build-teensy35 install
-    - ninja -C build-teensy35 blinky.size
-  artifacts:
-    paths:
-      - $INSTALL_PREFIX/
+Teensy 3.2:
+  extends: .build
+  variables:
+    BUILD_DIR: build-teensy32
+    CPU_FREQ: '96'
+    CROSS_FILE: $TEENSY3_CROSSFILE_GCC
+    VARIANT: '3.2'
 
-Build 3.6:
-  stage: build
-  script:
-    - meson build-teensy36 -Dvariant=3.6 -Dcpu_frequency=168
-      -Dprefix=$INSTALL_PREFIX --cross-file=$TEENSY3_CROSSFILE_GCC
-    - ninja -C build-teensy36 install
-    - ninja -C build-teensy36 blinky.size
-  artifacts:
-    paths:
-      - $INSTALL_PREFIX/
+Teensy 3.5:
+  extends: .build
+  variables:
+    BUILD_DIR: build-teensy35
+    CPU_FREQ: '120'
+    CROSS_FILE: $TEENSY3_CROSSFILE_GCC
+    VARIANT: '3.5'
 
-Build LC:
-  stage: build
-  script:
-    - meson build-teensyLC -Dvariant=LC -Dcpu_frequency=48
-      -Dprefix=$INSTALL_PREFIX --cross-file=$TEENSYLC_CROSSFILE_GCC
-    - ninja -C build-teensyLC install
-    - ninja -C build-teensyLC blinky.size
-  artifacts:
-    paths:
-      - $INSTALL_PREFIX/
+Teensy 3.6:
+  extends: .build
+  variables:
+    BUILD_DIR: build-teensy36
+    CPU_FREQ: '168'
+    CROSS_FILE: $TEENSY3_CROSSFILE_GCC
+    VARIANT: '3.6'
+
+Teensy LC:
+  extends: .build
+  variables:
+    BUILD_DIR: build-teensyLC
+    CROSS_FILE: $TEENSYLC_CROSSFILE_GCC
+    CPU_FREQ: '48'
+    VARIANT: LC
