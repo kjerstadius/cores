@@ -50,9 +50,15 @@ cpp_srcs = ['AudioStream.cpp',
             'usb_inst.cpp',
             'yield.cpp']
 
-# Note: The optimised memset.S is only used when optimising for size (-Os)
-s_srcs = ['memcpy-armv7m.S',
-          'memset.S']
+# Note: The optimised memset.S is only used when optimising for size (-Os).
+# The assembly optimizations also don't work for the Teensy LC as they're
+# intended for the M4. See https://github.com/PaulStoffregen/cores/issues/272
+if variant == 'LC'
+  s_srcs = []
+else
+  s_srcs = ['memcpy-armv7m.S',
+            'memset.S']
+endif
 
 includes = include_directories(['.', 'avr', 'util'])
 

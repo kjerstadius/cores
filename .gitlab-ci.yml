@@ -2,6 +2,7 @@ image: registry.gitlab.com/kjerstadius/docker-gcc-arm-none-eabi-meson/gcc-arm-no
 
 variables:
   TEENSY3_CROSSFILE_GCC: cross-teensy3-gcc.txt
+  TEENSYLC_CROSSFILE_GCC: cross-teensylc-gcc.txt
   INSTALL_PREFIX: $CI_PROJECT_DIR/install
 
 Build 3.0:
@@ -52,7 +53,7 @@ Build LC:
   stage: build
   script:
     - meson build-teensyLC -Dvariant=LC -Dcpu_frequency=48
-      -Dprefix=$INSTALL_PREFIX --cross-file=$TEENSY3_CROSSFILE_GCC
+      -Dprefix=$INSTALL_PREFIX --cross-file=$TEENSYLC_CROSSFILE_GCC
     - ninja -C build-teensyLC install
     - ninja -C build-teensyLC blinky.size
   artifacts:
